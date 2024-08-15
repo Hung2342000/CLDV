@@ -1,0 +1,7 @@
+entity CheckList {
+  id Long required
+  name String
+  year String
+  reason LocalDate
+}
+paginate CheckList with pagination

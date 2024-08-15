@@ -1,0 +1,16 @@
+entity Asset {
+  id Long required
+  name String
+  code String
+  serial String
+  type String
+  useTime LocalDate
+  startDate LocalDate
+  department String
+  status String
+  setupLocation String
+  quantity Integer
+  note String
+}
+
+paginate Asset with pagination

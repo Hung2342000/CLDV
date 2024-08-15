@@ -1,0 +1,69 @@
+{
+  "applications": "*",
+  "changelogDate": "20240325071510",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "asset_transfer_log",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "transferDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serial",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "departmentNew",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "departmentOld",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "owner",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "unit",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AssetTransferLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

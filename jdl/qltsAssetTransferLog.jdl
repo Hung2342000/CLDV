@@ -1,0 +1,17 @@
+entity AssetTransferLog {
+  id Long required
+  name String
+  code String
+  startDate LocalDate
+  transferDate  LocalDate
+  serial String
+  departmentNew String
+  departmentOld String
+  owner String
+  unit String
+  quantity Integer
+  status String
+  note String
+}
+paginate AssetTransferLog with pagination
+
