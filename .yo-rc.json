@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "applicationType": "monolith",
     "authenticationType": "jwt",
-    "baseName": "quanlytaisan",
+    "baseName": "qldv",
     "blueprints": [],
     "buildTool": "maven",
     "cacheProvider": "no",
@@ -20,7 +20,7 @@
     "enableHibernateCache": false,
     "enableSwaggerCodegen": true,
     "enableTranslation": true,
-    "entities": ["Tool", "ToolsAuditLog", "Asset", "ToolsTransferLog", "AssetsAuditLog", "CheckList", "AssetTransferLog"],
+    "entities": [],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.8.1",
