@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-center">
+  <div class="col-10">
+    <div *ngIf="ticket">
+      <h2 data-cy="toolDetailsHeading" style="margin-top: 10px"><span>Ticket</span></h2>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.phone">Phone</span>
+            <span>{{ ticket.phone }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.serviceType">Service Type</span>
+            <span>{{ ticket.serviceType }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.status">Status</span>
+            <span>{{ ticket.status }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.createdTime">Created Time</span>
+            <span>{{ ticket.createdTime | formatDateVnPipe }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.shopCode">Shop Code</span>
+            <span>{{ ticket.shopCode }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.closedTime">Closed Time</span>
+            <span>{{ ticket.closedTime | formatDateVnPipe }}</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.smsReceived">Sms Received</span>
+            <span>{{ ticket.smsReceived }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.changeBy">Change By</span>
+            <span>{{ ticket.changeBy }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.province">Province</span>
+            <span>{{ ticket.province}}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.smsStatus">Sms Status</span>
+            <span>{{ ticket.smsStatus }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.callingStatus">Calling Status</span>
+              <span>{{ ticket.callingStatus }}</span>
+          </div>
+
+          <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
+            <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.note">Note</span>
+            <span>{{ ticket.note }}</span>
+          </div>
+        </div>
+
+      </div>
+      <div style="margin-top: 20px; margin-bottom: 30px">
+        <button type="button" (click)="previousState()" class="btn btn-secondary">
+          <span>Đóng</span>
+        </button>
+        <button
+          type="button"
+          (click)="edit(ticket)"
+          class="btn btn-primary"
+        >
+          <span>Sửa</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

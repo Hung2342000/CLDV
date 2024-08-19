@@ -1,0 +1,69 @@
+{
+  "applications": "*",
+  "changelogDate": "20240819022759",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "ticket",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "changeBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "shopCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "closedTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "smsReceived",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "province",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "smsStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "callingStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Ticket",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

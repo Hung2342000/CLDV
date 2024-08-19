@@ -1,0 +1,24 @@
+entity Ticket {
+    id Long required
+    phone String
+    serviceType String
+    status String
+    createdTime LocalDate
+    changeBy String
+    shopCode String
+    closedTime LocalDate
+    smsReceived String
+    province String
+    smsStatus String
+    callingStatus String
+    note String
+}
+paginate Ticket with pagination
+
+entity Report {
+    id Long required
+    ticketId Long
+    actionAudit String
+    action String
+}
+paginate Report with pagination

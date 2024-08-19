@@ -35,8 +35,8 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     #url: jdbc:oracle:thin:@10.1.178.12:1521:dbcty4
     url: jdbc:oracle:thin:@10.14.36.105:1521:orcl
-    username: CTY4_QLTS
-    password: CTY4_QLTS
+    username: CTY4_CLDV
+    password: CTY4_CLDV
     hikari:
       poolName: Hikari
       auto-commit: false

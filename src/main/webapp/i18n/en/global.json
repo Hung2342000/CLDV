@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Quanlytaisan",
+    "title": "Chất lượng dịch vụ",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
       "home": "Home",
@@ -8,6 +8,8 @@
       "entities": {
         "main": "Entities",
         "tool": "Tool",
+        "ticket": "Ticket",
+        "report": "Report",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

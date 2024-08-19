@@ -1,7 +1,7 @@
 <nav data-cy="navbar" class="navbar navbar-light navbar-expand-md bg-light">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="navbar-title">Quản lý tài sản</span>
+      <span class="navbar-title">Chất lượng dịch vụ</span>
       <span class="navbar-version">{{ version }}</span>
     </a>
     <a
@@ -27,79 +27,6 @@
           </a>
         </li>
 
-        <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_SUPERUSER']" class="nav-link" routerLink="check-list" (click)="collapseNavbar()">
-            <span>
-              <fa-icon icon="th-list"></fa-icon>
-              <span>Đợt kiểm kê</span>
-            </span>
-          </a>
-        </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        <li
-          *ngSwitchCase="true"
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
-            <span>
-              <fa-icon icon="th-list"></fa-icon>
-              <span>Lịch sử kiểm kê</span>
-            </span>
-          </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="tools-audit-log"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <span>Công cụ dụng cụ</span>
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="assets-audit-log"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <span>Tài sản cố định</span>
-              </a>
-            </li>
-
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="tools-transfer-log"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <span>Điều chuyển Công cụ dụng cụ</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="asset-transfer-log"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <span>Điều chuyển Tài sản cố định</span>
-              </a>
-            </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-          </ul>
-        </li>
         <li
           *ngSwitchCase="true"
           ngbDropdown
@@ -118,12 +45,23 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="tool"
+                routerLink="ticket"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <span>Công cụ dụng cụ</span>
+                <span jhiTranslate="global.menu.entities.ticket">Ticket</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="report"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <span jhiTranslate="global.menu.entities.report">Report</span>
               </a>
             </li>
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
