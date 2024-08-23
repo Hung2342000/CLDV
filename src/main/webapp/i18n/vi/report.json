@@ -12,7 +12,7 @@
       "updated": "Một Report cập nhật với định danh {{ param }}",
       "deleted": "Một Report đã xóa với định danh {{ param }}",
       "delete": {
-        "question": "Bạn có chắc là muốn xóa Report {{ id }}?"
+        "question": "Bạn có chắc là muốn xóa ?"
       },
       "detail": {
         "title": "Report"

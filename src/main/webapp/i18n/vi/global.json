@@ -104,7 +104,7 @@
       "value": "Giá trị"
     },
     "delete": {
-      "title": "Xác nhận hành động xóa"
+      "title": "Xóa"
     },
     "validation": {
       "required": "Trường này bắt buộc phải nhập.",

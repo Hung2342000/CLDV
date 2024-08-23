@@ -9,5 +9,4 @@ export const HOME_ROUTE: Route = {
   data: {
     pageTitle: 'home.title',
   },
-  canActivate: [UserRouteAccessService],
 };

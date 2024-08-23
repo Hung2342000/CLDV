@@ -96,7 +96,7 @@ export class TicketComponent implements OnInit {
   }
 
   delete(ticket: ITicket): void {
-    const modalRef = this.modalService.open(TicketDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService.open(TicketDeleteDialogComponent, { size: 'sm', backdrop: 'static' });
     modalRef.componentInstance.ticket = ticket;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
