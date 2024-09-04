@@ -26,6 +26,14 @@
             </span>
           </a>
         </li>
+        <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/customer-request" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="home"></fa-icon>
+              <span>Yêu cầu</span>
+            </span>
+          </a>
+        </li>
 
         <li
           *ngSwitchCase="true"

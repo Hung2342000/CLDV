@@ -1,14 +1,12 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate >
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <div>
         <jhi-alert-error></jhi-alert-error>
         <div class="row">
           <div class="col-md-2"></div>
           <div class="col-md-6">
-            <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">
-              Form đánh giá chất luợng dịch vụ
-            </h2>
+            <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">Chào mừng quý khách đến với cửa hàng giao dịch</h2>
             <div class="row mb-3">
               <label class="form-label" jhiTranslate="qldvApp.ticket.phone" for="field_phone">Phone</label>
               <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
@@ -16,34 +14,36 @@
 
             <div class="row mb-3">
               <label class="form-label" jhiTranslate="qldvApp.ticket.serviceType" for="field_serviceType">Service Type</label>
-              <select
-                class="form-select"
-                id="field_serviceType"
-                name="serviceType"
-                formControlName="serviceType"
-                data-cy="serviceType"
-              >
+              <select class="form-select" id="field_serviceType" name="serviceType" formControlName="serviceType" data-cy="serviceType">
                 <option value="Thay sim">Thay sim</option>
                 <option value="Thanh toán cước">Thanh toán cước</option>
               </select>
             </div>
             <div>
-              <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary">
+              <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
                 <span jhiTranslate="entity.action.cancel">Cancel</span>
               </button>
-              <button
-                type="submit"
-                id="save-entity"
-                data-cy="entityCreateSaveButton"
-                class="btn btn-primary"
-              >
-                <span >Gửi</span>
+              <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
+                <span>Gửi</span>
               </button>
             </div>
           </div>
         </div>
       </div>
-
     </form>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="toolDeleteDialogHeading">Thông báo</h4>
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Cảm ơn quý khách</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+      <span>Đóng</span>
+    </button>
+  </div>
+</ng-template>

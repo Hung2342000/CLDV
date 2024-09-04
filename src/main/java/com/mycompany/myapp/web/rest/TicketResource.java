@@ -5,6 +5,7 @@ import com.mycompany.myapp.repository.TicketRepository;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,6 +60,7 @@ public class TicketResource {
         if (ticket.getId() != null) {
             throw new BadRequestAlertException("A new ticket cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        ticket.setCreatedTime(LocalDate.now());
         Ticket result = ticketRepository.save(ticket);
         return ResponseEntity
             .created(new URI("/api/tickets/" + result.getId()))
@@ -92,7 +94,9 @@ public class TicketResource {
         if (!ticketRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
-
+        if (ticket.getClosedTime() == null && ticket.getStatus().equals("Đã đóng")) {
+            ticket.setClosedTime(LocalDate.now());
+        }
         Ticket result = ticketRepository.save(ticket);
         return ResponseEntity
             .ok()

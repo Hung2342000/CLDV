@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CustomerRequestModule } from './customer-request/customer-request.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,11 @@ import { RouterModule } from '@angular/router';
         path: 'report',
         data: { pageTitle: 'qldvApp.report.home.title' },
         loadChildren: () => import('./report/report.module').then(m => m.ReportModule),
+      },
+      {
+        path: 'customer-request',
+        data: { pageTitle: 'qldvApp.report.home.title' },
+        loadChildren: () => import('./customer-request/customer-request.module').then(m => m.CustomerRequestModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

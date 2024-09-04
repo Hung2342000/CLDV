@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="TicketHeading">
+    <span>Yêu cầu khách hàng</span>
+
+    <div class="d-flex justify-content-end">
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-ticket"
+        [routerLink]="['/ticket/new']"
+      >
+        <span jhiTranslate="qldvApp.ticket.home.createLabel"> Create a new Ticket </span>
+      </button>
+    </div>
+  </h2>
+  <div class="table-responsive" id="entities" *ngIf="tickets">
+    <table class="table table-hover" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th class="text-center" scope="col" jhiSortBy="id">
+            <span jhiTranslate="qldvApp.ticket.id">Stt</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th class="text-center" scope="col" jhiSortBy="phone">
+            <span jhiTranslate="qldvApp.ticket.phone">Phone</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th class="text-center" scope="col" jhiSortBy="serviceType">
+            <span jhiTranslate="qldvApp.ticket.serviceType">Service Type</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th class="text-center" scope="col" jhiSortBy="createdTime">
+            <span jhiTranslate="qldvApp.ticket.createdTime">Created Time</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th class="text-center" scope="col">Đóng yêu cầu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of tickets; trackBy: trackId; let i = index" data-cy="entityTable">
+          <td>{{ i + 1 }}</td>
+          <td class="text-center">{{ ticket.phone }}</td>
+          <td class="text-center">{{ ticket.serviceType }}</td>
+          <td class="text-center">{{ ticket.createdTime | formatDateVnPipe }}</td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button
+                *ngIf="ticket.closedTime"
+                disabled
+                type="submit"
+                (click)="closeCustomerRequest(ticket)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+              <button
+                *ngIf="!ticket.closedTime"
+                type="submit"
+                (click)="closeCustomerRequest(ticket)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let l of newArr(10 - tickets.length)">
+          <td class="text-center empty-row" style="width: 50px">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="tickets && tickets.length > 0" class="d-flex justify-content-end">
+    <div class="p-3 d-flex" style="justify-content: space-between">
+      <select style="border-radius: 7%; height: 35px" [(ngModel)]="itemsPerPage" (change)="loadPageSearch()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+      </select>
+      <div style="font-size: 20px; margin-right: 15px">
+        <span style="width: 170px; padding-left: 20px; font-size: 15px">Tổng số: {{ this.totalItems }} </span>
+      </div>
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+        class=""
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="toolDeleteDialogHeading">Thông báo</h4>
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ this.modalContent }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+      <span>Đóng</span>
+    </button>
+  </div>
+</ng-template>

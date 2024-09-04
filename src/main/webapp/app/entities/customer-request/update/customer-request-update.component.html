@@ -1,0 +1,136 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">Ticket</h2>
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.phone" for="field_phone">Phone</label>
+              <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.serviceType" for="field_serviceType">Service Type</label>
+              <input
+                type="text"
+                class="form-control"
+                name="serviceType"
+                id="field_serviceType"
+                data-cy="serviceType"
+                formControlName="serviceType"
+              />
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.status" for="field_status">Status</label>
+              <select class="form-select" id="field_status" formControlName="status" data-cy="status">
+                <option value="Đóng">Đóng</option>
+                <option value="Mở">Mở</option>
+              </select>
+              <!--              <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />-->
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.createdTime" for="field_createdTime">Created Time</label>
+              <div class="input-group">
+                <input
+                  id="field_createdTime"
+                  data-cy="createdTime"
+                  type="text"
+                  class="form-control"
+                  name="createdTime"
+                  ngbDatepicker
+                  #createdTimeDp="ngbDatepicker"
+                  formControlName="createdTime"
+                />
+                <button type="button" class="btn btn-secondary" (click)="createdTimeDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.changeBy" for="field_changeBy">Change By</label>
+              <input type="text" class="form-control" name="changeBy" id="field_changeBy" data-cy="changeBy" formControlName="changeBy" />
+            </div>
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.shopCode" for="field_shopCode">Shop Code</label>
+              <input type="text" class="form-control" name="shopCode" id="field_shopCode" data-cy="shopCode" formControlName="shopCode" />
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.closedTime" for="field_closedTime">Closed Time</label>
+              <div class="input-group">
+                <input
+                  id="field_closedTime"
+                  data-cy="closedTime"
+                  type="text"
+                  class="form-control"
+                  name="closedTime"
+                  ngbDatepicker
+                  #closedTimeDp="ngbDatepicker"
+                  formControlName="closedTime"
+                />
+                <button type="button" class="btn btn-secondary" (click)="closedTimeDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.smsReceived" for="field_smsReceived">Sms Received</label>
+              <input
+                type="text"
+                class="form-control"
+                name="smsReceived"
+                id="field_smsReceived"
+                data-cy="smsReceived"
+                formControlName="smsReceived"
+              />
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.province" for="field_province">Province</label>
+              <input type="text" class="form-control" name="province" id="field_province" data-cy="province" formControlName="province" />
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.smsStatus" for="field_smsStatus">Sms Status</label>
+              <select class="form-select" id="field_smsStatus" formControlName="smsStatus" name="smsStatus" data-cy="smsStatus">
+                <option value="Đã gửi">Đã gửi</option>
+                <option value="Tốt">Tốt</option>
+                <option value="Không tốt">Không tốt</option>
+                <option value="Sai cú pháp">Sai cú pháp</option>
+              </select>
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.callingStatus" for="field_callingStatus">Calling Status</label>
+              <select class="form-select" id="field_callingStatus" formControlName="callingStatus" data-cy="callingStatus">
+                <option value="Đã gọi">Đã gọi</option>
+                <option value="Chưa gọi">Chưa gọi</option>
+              </select>
+            </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.note" for="field_note">Note</label>
+              <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
