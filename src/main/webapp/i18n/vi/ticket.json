@@ -25,9 +25,9 @@
       "changeBy": "Giao dịch viên xử lý",
       "shopCode": "Cửa hàng giao dịch",
       "closedTime": "Thời gian đóng",
-      "smsReceived": "Tin nhắn thu hồi",
+      "smsReceived": "Tin nhắn phản hồi",
       "province": "Tỉnh",
-      "smsStatus": "Trạng thái tin nhắn",
+      "smsStatus": "Trạng thái sms",
       "callingStatus": "Trạng thái gọi ra",
       "note": "Ghi chú"
     }

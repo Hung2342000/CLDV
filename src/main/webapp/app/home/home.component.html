@@ -19,6 +19,14 @@
                 <option value="Thanh toán cước">Thanh toán cước</option>
               </select>
             </div>
+
+            <div class="row mb-3">
+              <label class="form-label" jhiTranslate="qldvApp.ticket.province" for="field_province">Province</label>
+              <select class="form-select" id="field_province" name="province" formControlName="province" data-cy="province">
+                <option value=""></option>
+                <option *ngFor="let department of departments" [value]="department.code">{{ department.province }}</option>
+              </select>
+            </div>
             <div>
               <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
                 <span jhiTranslate="entity.action.cancel">Cancel</span>

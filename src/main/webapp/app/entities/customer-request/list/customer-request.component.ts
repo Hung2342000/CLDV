@@ -10,6 +10,8 @@ import { CustomerRequestDeleteDialogComponent } from '../delete/customer-request
 import { CustomerRequestDetailComponent } from '../detail/customer-request-detail.component';
 import { ITicket } from '../../ticket/ticket.model';
 import { finalize } from 'rxjs/operators';
+import dayjs from 'dayjs/esm';
+import { DATE_FORMAT } from '../../../config/input.constants';
 
 @Component({
   selector: 'jhi-customer-request',
@@ -28,6 +30,9 @@ export class CustomerRequestComponent implements OnInit {
   ticket?: ITicket | any;
   modalContent?: string = '';
   isSaving = false;
+  searchPhone?: string = '';
+  searchService?: string = '';
+  searchTime?: dayjs.Dayjs;
   constructor(
     protected ticketService: CustomerRequestService,
     protected activatedRoute: ActivatedRoute,
@@ -44,6 +49,9 @@ export class CustomerRequestComponent implements OnInit {
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
+        searchPhone: this.searchPhone,
+        searchService: this.searchService,
+        searchTime: this.searchTime?.isValid() ? this.searchTime.format(DATE_FORMAT) : null,
       })
       .subscribe({
         next: (res: HttpResponse<ITicket[]>) => {
@@ -71,12 +79,14 @@ export class CustomerRequestComponent implements OnInit {
   }
   loadPageSearch(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
-
     this.ticketService
       .query({
         page: 0,
         size: this.itemsPerPage,
         sort: this.sort(),
+        searchPhone: this.searchPhone,
+        searchService: this.searchService,
+        searchTime: this.searchTime?.isValid() ? this.searchTime.format(DATE_FORMAT) : null,
       })
       .subscribe({
         next: (res: HttpResponse<ITicket[]>) => {
@@ -88,6 +98,9 @@ export class CustomerRequestComponent implements OnInit {
           this.onError();
         },
       });
+  }
+  onDateChange(): void {
+    this.loadPageSearch();
   }
   newArr(lenght: number): any[] {
     if (lenght > 0) {
@@ -165,7 +178,7 @@ export class CustomerRequestComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/ticket'], {
+      this.router.navigate(['/customer-request'], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

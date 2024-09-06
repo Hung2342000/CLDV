@@ -41,11 +41,7 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(
-        UserRepository userRepository,
-        UserService userService,
-        MailService mailService
-    ) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -107,9 +103,9 @@ public class AccountResource {
             .getUserWithAuthorities()
             .map(AdminUserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
-//        if (adminUserDTO.getDepartment() != null) {
-//            adminUserDTO.setDepartmentName(departmentRepository.findDepartmentByCode(adminUserDTO.getDepartment()).getName());
-//        }
+        //        if (adminUserDTO.getDepartment() != null) {
+        //            adminUserDTO.setDepartmentName(departmentRepository.findDepartmentByCode(adminUserDTO.getDepartment()).getName());
+        //        }
         return adminUserDTO;
     }
 
@@ -133,13 +129,7 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("User could not be found");
         }
-        userService.updateUser(
-            userDTO.getFirstName(),
-            userDTO.getLastName(),
-            userDTO.getEmail(),
-            userDTO.getLangKey(),
-            userDTO.getImageUrl()
-        );
+        userService.updateUser(userDTO.getName(), userDTO.getEmail(), userDTO.getLangKey(), userDTO.getImageUrl());
     }
 
     /**

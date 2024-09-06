@@ -10,6 +10,9 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/config/pagination.constants
 import { TicketService } from '../service/ticket.service';
 import { TicketDeleteDialogComponent } from '../delete/ticket-delete-dialog.component';
 import { TicketDetailComponent } from '../detail/ticket-detail.component';
+import dayjs from 'dayjs/esm';
+import { DATE_FORMAT } from '../../../config/input.constants';
+import { IDepartment } from '../department.model';
 
 @Component({
   selector: 'jhi-ticket',
@@ -24,6 +27,10 @@ export class TicketComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  searchPhone?: string = '';
+  searchService?: string = '';
+  searchTime?: dayjs.Dayjs;
+  departments?: IDepartment[] | any;
 
   constructor(
     protected ticketService: TicketService,
@@ -35,12 +42,14 @@ export class TicketComponent implements OnInit {
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
-
     this.ticketService
       .query({
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
+        searchPhone: this.searchPhone,
+        searchService: this.searchService,
+        searchTime: this.searchTime?.isValid() ? this.searchTime.format(DATE_FORMAT) : null,
       })
       .subscribe({
         next: (res: HttpResponse<ITicket[]>) => {
@@ -52,11 +61,17 @@ export class TicketComponent implements OnInit {
           this.onError();
         },
       });
+    this.ticketService.queryDepartment().subscribe({
+      next: (res: HttpResponse<IDepartment[]>) => {
+        this.departments = res.body;
+      },
+    });
   }
 
   view(ticket: ITicket): void {
     const modalRef = this.modalService.open(TicketDetailComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.ticket = ticket;
+    modalRef.componentInstance.departments = this.departments;
   }
 
   loadPageSearch(page?: number, dontNavigate?: boolean): void {
@@ -67,6 +82,9 @@ export class TicketComponent implements OnInit {
         page: 0,
         size: this.itemsPerPage,
         sort: this.sort(),
+        searchPhone: this.searchPhone,
+        searchService: this.searchService,
+        searchTime: this.searchTime?.isValid() ? this.searchTime.format(DATE_FORMAT) : null,
       })
       .subscribe({
         next: (res: HttpResponse<ITicket[]>) => {
@@ -87,6 +105,18 @@ export class TicketComponent implements OnInit {
     }
   }
 
+  departmentName(code: string | null | undefined): any {
+    let name = code;
+    for (let i = 0; i < this.departments.length; i++) {
+      if (code?.includes(this.departments[i].code)) {
+        name = this.departments[i].province;
+      }
+    }
+    return name;
+  }
+  onDateChange(): void {
+    this.loadPageSearch();
+  }
   ngOnInit(): void {
     this.handleNavigation();
   }

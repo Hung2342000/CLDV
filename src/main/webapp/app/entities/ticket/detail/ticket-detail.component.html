@@ -48,7 +48,7 @@
 
           <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
             <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.province">Province</span>
-            <span>{{ ticket.province}}</span>
+            <span>{{ departmentName(ticket.province) }}</span>
           </div>
 
           <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
@@ -58,7 +58,7 @@
 
           <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
             <span style="margin-right: 10px; font-weight: bold" jhiTranslate="qldvApp.ticket.callingStatus">Calling Status</span>
-              <span>{{ ticket.callingStatus }}</span>
+            <span>{{ ticket.callingStatus }}</span>
           </div>
 
           <div style="display: flex; margin-bottom: 15px; flex-wrap: wrap">
@@ -66,17 +66,12 @@
             <span>{{ ticket.note }}</span>
           </div>
         </div>
-
       </div>
       <div style="margin-top: 20px; margin-bottom: 30px">
         <button type="button" (click)="previousState()" class="btn btn-secondary">
           <span>Đóng</span>
         </button>
-        <button
-          type="button"
-          (click)="edit(ticket)"
-          class="btn btn-primary"
-        >
+        <button type="button" (click)="edit(ticket)" class="btn btn-primary">
           <span>Sửa</span>
         </button>
       </div>

@@ -31,6 +31,52 @@
           </th>
           <th class="text-center" scope="col">Đóng yêu cầu</th>
         </tr>
+        <tr style="border-bottom: 1px solid">
+          <th scope="col"></th>
+          <th scope="col">
+            <input
+              (keyup.enter)="loadPageSearch()"
+              [(ngModel)]="searchPhone"
+              class="form-control border border-dark"
+              style="height: 30px"
+              type="search"
+              placeholder="Số điện thoại"
+              aria-label="Tìm kiếm"
+            />
+          </th>
+          <th scope="col">
+            <input
+              (keyup.enter)="loadPageSearch()"
+              [(ngModel)]="searchService"
+              class="form-control border border-dark"
+              style="height: 30px"
+              type="search"
+              placeholder="Dịch vụ"
+              aria-label="Tìm kiếm"
+            />
+          </th>
+          <th class="text-center" scope="col">
+            <div class="input-group">
+              <input
+                style="margin-left: -2%; font-size: 13px; height: 32px"
+                id="searchTime"
+                type="text"
+                class="form-control"
+                name="endDate"
+                placeholder="dd-mm-yyyy"
+                [(ngModel)]="searchTime"
+                (ngModelChange)="onDateChange()"
+                ngbDatepicker
+                #endDateDp="ngbDatepicker"
+              />
+              <button style="margin-right: -2%; height: 32px" type="button" class="btn btn-secondary" (click)="endDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </div>
+          </th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ticket of tickets; trackBy: trackId; let i = index" data-cy="entityTable">

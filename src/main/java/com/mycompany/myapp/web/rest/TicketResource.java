@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Ticket;
 import com.mycompany.myapp.repository.TicketRepository;
+import com.mycompany.myapp.service.TicketService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,9 +43,11 @@ public class TicketResource {
     private String applicationName;
 
     private final TicketRepository ticketRepository;
+    private final TicketService ticketService;
 
-    public TicketResource(TicketRepository ticketRepository) {
+    public TicketResource(TicketService ticketService, TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
+        this.ticketService = ticketService;
     }
 
     /**
@@ -94,10 +97,7 @@ public class TicketResource {
         if (!ticketRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
-        if (ticket.getClosedTime() == null && ticket.getStatus().equals("Đã đóng")) {
-            ticket.setClosedTime(LocalDate.now());
-        }
-        Ticket result = ticketRepository.save(ticket);
+        Ticket result = ticketService.updateTicket(ticket);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, ticket.getId().toString()))
@@ -189,9 +189,14 @@ public class TicketResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tickets in body.
      */
     @GetMapping("/tickets")
-    public ResponseEntity<List<Ticket>> getAllTickets(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<Ticket>> getAllTickets(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        String searchPhone,
+        String searchService,
+        String searchTime
+    ) {
         log.debug("REST request to get a page of Tickets");
-        Page<Ticket> page = ticketRepository.findAll(pageable);
+        Page<Ticket> page = ticketService.getAllTickets(pageable, searchPhone, searchService, searchTime);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

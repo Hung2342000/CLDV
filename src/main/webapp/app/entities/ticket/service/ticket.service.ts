@@ -9,6 +9,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ITicket, getTicketIdentifier } from '../ticket.model';
+import { IDepartment } from '../department.model';
 
 export type EntityResponseType = HttpResponse<ITicket>;
 export type EntityArrayResponseType = HttpResponse<ITicket[]>;
@@ -16,7 +17,7 @@ export type EntityArrayResponseType = HttpResponse<ITicket[]>;
 @Injectable({ providedIn: 'root' })
 export class TicketService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/tickets');
-
+  protected resourceUrlDepartment = this.applicationConfigService.getEndpointFor('api/department/all');
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(ticket: ITicket): Observable<EntityResponseType> {
@@ -33,6 +34,9 @@ export class TicketService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  queryDepartment(): Observable<EntityArrayResponseType> {
+    return this.http.get<IDepartment[]>(this.resourceUrlDepartment + '/province', { observe: 'response' });
+  }
   partialUpdate(ticket: ITicket): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(ticket);
     return this.http

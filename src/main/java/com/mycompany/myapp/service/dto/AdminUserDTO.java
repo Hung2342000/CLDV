@@ -23,11 +23,11 @@ public class AdminUserDTO {
 
     private String passWord;
 
-    @Size(max = 50)
-    private String firstName;
+    @Size(max = 200)
+    private String name;
 
-    @Size(max = 50)
-    private String lastName;
+    //    @Size(max = 50)
+    //    private String lastName;
 
     @Email
     @Size(min = 5, max = 254)
@@ -64,8 +64,7 @@ public class AdminUserDTO {
     public AdminUserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+        this.name = user.getName();
         this.email = user.getEmail();
         this.activated = user.isActivated();
         this.imageUrl = user.getImageUrl();
@@ -120,21 +119,29 @@ public class AdminUserDTO {
         this.passWord = passWord;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    //    public String getFirstName() {
+    //        return firstName;
+    //    }
+    //
+    //    public void setFirstName(String firstName) {
+    //        this.firstName = firstName;
+    //    }
+    //
+    //    public String getLastName() {
+    //        return lastName;
+    //    }
+    //
+    //    public void setLastName(String lastName) {
+    //        this.lastName = lastName;
+    //    }
 
     public String getEmail() {
         return email;
@@ -221,8 +228,7 @@ public class AdminUserDTO {
     public String toString() {
         return "AdminUserDTO{" +
             "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
+            ", name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +

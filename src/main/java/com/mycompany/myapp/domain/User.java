@@ -42,12 +42,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String password;
 
     @Size(max = 50)
-    @Column(name = "first_name", length = 50)
-    private String firstName;
+    @Column(name = "name", length = 200)
+    private String name;
 
-    @Size(max = 50)
-    @Column(name = "last_name", length = 50)
-    private String lastName;
+    //    @Size(max = 50)
+    //    @Column(name = "last_name", length = 50)
+    //    private String lastName;
 
     @Email
     @Size(min = 5, max = 254)
@@ -123,21 +123,29 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    //    public String getFirstName() {
+    //        return firstName;
+    //    }
+    //
+    //    public void setFirstName(String firstName) {
+    //        this.firstName = firstName;
+    //    }
+    //
+    //    public String getLastName() {
+    //        return lastName;
+    //    }
+    //
+    //    public void setLastName(String lastName) {
+    //        this.lastName = lastName;
+    //    }
 
     public String getEmail() {
         return email;
@@ -249,8 +257,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "User{" +
             "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
+            ", name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated='" + activated + '\'' +

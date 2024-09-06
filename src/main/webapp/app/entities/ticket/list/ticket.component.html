@@ -22,16 +22,16 @@
           <th scope="col" jhiSortBy="serviceType">
             <span jhiTranslate="qldvApp.ticket.serviceType">Service Type</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="status"><span jhiTranslate="qldvApp.ticket.status">Status</span> <fa-icon icon="sort"></fa-icon></th>
+          <!--          <th scope="col" jhiSortBy="status"><span jhiTranslate="qldvApp.ticket.status">Status</span> <fa-icon icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="createdTime">
             <span jhiTranslate="qldvApp.ticket.createdTime">Created Time</span> <fa-icon icon="sort"></fa-icon>
           </th>
-<!--          <th scope="col" jhiSortBy="changeBy">-->
-<!--            <span jhiTranslate="qldvApp.ticket.changeBy">Change By</span> <fa-icon icon="sort"></fa-icon>-->
-<!--          </th>-->
-<!--          <th scope="col" jhiSortBy="shopCode">-->
-<!--            <span jhiTranslate="qldvApp.ticket.shopCode">Shop Code</span> <fa-icon icon="sort"></fa-icon>-->
-<!--          </th>-->
+          <th scope="col" jhiSortBy="changeBy">
+            <span jhiTranslate="qldvApp.ticket.changeBy">Change By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="shopCode">
+            <span jhiTranslate="qldvApp.ticket.shopCode">Shop Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="closedTime">
             <span jhiTranslate="qldvApp.ticket.closedTime">Closed Time</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -41,32 +41,85 @@
           <th scope="col" jhiSortBy="province">
             <span jhiTranslate="qldvApp.ticket.province">Province</span> <fa-icon icon="sort"></fa-icon>
           </th>
-<!--          <th scope="col" jhiSortBy="smsStatus">-->
-<!--            <span jhiTranslate="qldvApp.ticket.smsStatus">Sms Status</span> <fa-icon icon="sort"></fa-icon>-->
-<!--          </th>-->
-<!--          <th scope="col" jhiSortBy="callingStatus">-->
-<!--            <span jhiTranslate="qldvApp.ticket.callingStatus">Calling Status</span> <fa-icon icon="sort"></fa-icon>-->
-<!--          </th>-->
+          <th scope="col" jhiSortBy="smsStatus">
+            <span jhiTranslate="qldvApp.ticket.smsStatus">Sms Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="callingStatus">
+            <span jhiTranslate="qldvApp.ticket.callingStatus">Calling Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="note"><span jhiTranslate="qldvApp.ticket.note">Note</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
+        <tr style="border-bottom: 1px solid">
+          <th scope="col"></th>
+          <th scope="col" style="width: 8%">
+            <input
+              (keyup.enter)="loadPageSearch()"
+              [(ngModel)]="searchPhone"
+              class="form-control border border-dark"
+              style="height: 30px"
+              type="search"
+              placeholder="Số điện thoại"
+              aria-label="Tìm kiếm"
+            />
+          </th>
+          <th scope="col" style="width: 10%">
+            <input
+              (keyup.enter)="loadPageSearch()"
+              [(ngModel)]="searchService"
+              class="form-control border border-dark"
+              style="height: 30px"
+              type="search"
+              placeholder="Dịch vụ"
+              aria-label="Tìm kiếm"
+            />
+          </th>
+          <th class="text-center" scope="col" style="width: 7%">
+            <div class="input-group">
+              <input
+                style="margin-left: -2%; font-size: 13px; height: 32px"
+                id="searchTime"
+                type="text"
+                class="form-control"
+                name="endDate"
+                placeholder="dd-mm-yyyy"
+                [(ngModel)]="searchTime"
+                (ngModelChange)="onDateChange()"
+                ngbDatepicker
+                #endDateDp="ngbDatepicker"
+              />
+              <button style="margin-right: -2%; height: 32px" type="button" class="btn btn-secondary" (click)="endDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </div>
+          </th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th class="text-center" scope="col"></th>
+          <th class="text-center" scope="col"></th>
+          <th class="text-center" scope="col"></th>
+          <th class="text-center" scope="col"></th>
+          <th class="text-center" scope="col"></th>
+        </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ticket of tickets; trackBy: trackId;let i = index" data-cy="entityTable">
+        <tr *ngFor="let ticket of tickets; trackBy: trackId; let i = index" data-cy="entityTable">
           <td (dblclick)="view(ticket)">
             {{ i + 1 }}
           </td>
-          <td (dblclick)="view(ticket)"> {{ ticket.phone }}</td>
+          <td (dblclick)="view(ticket)">{{ ticket.phone }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.serviceType }}</td>
-          <td (dblclick)="view(ticket)">{{ ticket.status }}</td>
+          <!--          <td (dblclick)="view(ticket)">{{ ticket.status }}</td>-->
           <td (dblclick)="view(ticket)">{{ ticket.createdTime | formatDateVnPipe }}</td>
-<!--          <td>{{ ticket.changeBy }}</td>-->
-<!--          <td>{{ ticket.shopCode }}</td>-->
+          <td (dblclick)="view(ticket)">{{ ticket.changeBy }}</td>
+          <td (dblclick)="view(ticket)">{{ ticket.shopCode }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.closedTime | formatDateVnPipe }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.smsReceived }}</td>
-          <td (dblclick)="view(ticket)">{{ ticket.province }}</td>
-<!--          <td>{{ ticket.smsStatus }}</td>-->
-<!--          <td>{{ ticket.callingStatus }}</td>-->
+          <td (dblclick)="view(ticket)">{{ departmentName(ticket.province) }}</td>
+          <td (dblclick)="view(ticket)">{{ ticket.smsStatus }}</td>
+          <td (dblclick)="view(ticket)">{{ ticket.callingStatus }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.note }}</td>
           <td class="text-end">
             <div class="btn-group">
@@ -93,6 +146,9 @@
           <td class="text-center empty-row">&nbsp;</td>
           <td class="text-right empty-row">&nbsp;</td>
           <td class="text-right empty-row">&nbsp;</td>
+          <td class="text-right empty-row"></td>
+          <td class="text-right empty-row"></td>
+          <td class="text-right empty-row"></td>
           <td class="text-right empty-row"></td>
           <td class="text-right empty-row"></td>
           <!--          <td class="text-right empty-row"></td>-->

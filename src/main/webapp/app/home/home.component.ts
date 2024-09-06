@@ -10,6 +10,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ITicket, Ticket } from '../entities/ticket/ticket.model';
 import { TicketService } from '../entities/ticket/service/ticket.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IDepartment } from '../entities/ticket/department.model';
 
 @Component({
   selector: 'jhi-home',
@@ -21,10 +22,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
   isSaving = false;
   modalContent?: string = '';
+  departments?: IDepartment[] | any;
   editForm = this.fb.group({
     id: [null, [Validators.required]],
     phone: [],
     serviceType: [],
+    province: [],
   });
   private readonly destroy$ = new Subject<void>();
   constructor(
@@ -41,6 +44,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+    this.ticketService.queryDepartment().subscribe({
+      next: (res: HttpResponse<IDepartment[]>) => {
+        this.departments = res.body;
+      },
+    });
   }
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -80,6 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       id: this.editForm.get(['id'])!.value,
       phone: this.editForm.get(['phone'])!.value,
       serviceType: this.editForm.get(['serviceType'])!.value,
+      province: this.editForm.get(['province'])!.value,
     };
   }
 }
