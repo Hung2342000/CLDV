@@ -1,0 +1,27 @@
+{
+  "qldvApp": {
+    "ticket": {
+      "home": {
+        "title": "Cửa hàng",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm",
+        "createOrEditLabel": "Sửa",
+        "notFound": "No Tickets found"
+      },
+      "created": "Một cửa hàng mới được tạo",
+      "updated": "Một cửa hàng cập nhật",
+      "deleted": "Một cửa hàng đã xóa",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa cửa hàng?"
+      },
+      "detail": {
+        "title": "Cửa hàng"
+      },
+      "id": "Stt",
+      "shopCode": "shopCode",
+      "Name": "Name",
+      "Address": "Address",
+      "Province": "Province"
+    }
+  }
+}

@@ -1,0 +1,135 @@
+<div>
+  <h2 id="page-heading" data-cy="shopHeading">
+    <span>Hệ thống cửa hàng</span>
+
+    <div class="d-flex justify-content-end">
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-shop"
+        [routerLink]="['/shop/new']"
+      >
+        <span> Thêm </span>
+      </button>
+    </div>
+  </h2>
+  <div class="table-responsive" id="entities" *ngIf="shops">
+    <table class="table table-hover" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th class="text-center" style="width: 5%" scope="col" jhiSortBy="id"><span>Stt</span> <fa-icon icon="sort"></fa-icon></th>
+          <th style="width: 15%" class="text-center" scope="col" jhiSortBy="shopCode">
+            <span>Mã cửa hàng</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th style="width: 20%" class="text-center" scope="col" jhiSortBy="name">
+            <span>Tên cửa hàng</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th style="width: 15%" class="text-center" scope="col" jhiSortBy="province">
+            <span>Tỉnh, thành phố</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th class="text-center" scope="col" jhiSortBy="address"><span>Địa chỉ</span> <fa-icon icon="sort"></fa-icon></th>
+          <th class="text-center" scope="col">Thao tác</th>
+        </tr>
+        <tr style="border-bottom: 1px solid">
+          <th scope="col"></th>
+          <th scope="col">
+            <input
+              (keyup.enter)="loadPageSearch()"
+              [(ngModel)]="searchShopCode"
+              class="form-control border border-dark"
+              style="height: 30px; width: 60%; margin: 0 auto"
+              type="search"
+              placeholder="Mã cửa hàng"
+              aria-label="Tìm kiếm"
+            />
+          </th>
+          <th scope="col">
+            <input
+              (keyup.enter)="loadPageSearch()"
+              [(ngModel)]="searchName"
+              class="form-control border border-dark"
+              style="height: 30px"
+              type="search"
+              placeholder="Tên cửa hàng"
+              aria-label="Tìm kiếm"
+            />
+          </th>
+          <th class="text-center" scope="col">
+            <select style="border-radius: 7%; height: 30px" id="departmentSelect" [(ngModel)]="searchProvince" (change)="loadPageSearch()">
+              <option [value]=""></option>
+              <option *ngFor="let department of departments" [value]="department.code">{{ department.province }}</option>
+            </select>
+          </th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let shop of shops; let i = index" data-cy="entityTable">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td class="text-center">{{ shop.shopCode }}</td>
+          <td>{{ shop.name }}</td>
+          <td class="text-center">{{ departmentName(shop.province) }}</td>
+          <td>{{ shop.address }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" (click)="view(shop)" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+              </button>
+              <button type="submit" [routerLink]="['/shop', shop.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+              </button>
+
+              <button type="submit" (click)="delete(shop)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let l of newArr(10 - shops.length)">
+          <td class="text-center empty-row" style="width: 50px">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row">&nbsp;</td>
+          <td class="text-center empty-row"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="shops && shops.length > 0" class="d-flex justify-content-end">
+    <div class="p-3 d-flex" style="justify-content: space-between">
+      <select style="border-radius: 7%; height: 35px" [(ngModel)]="itemsPerPage" (change)="loadPageSearch()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+      </select>
+      <div style="font-size: 20px; margin-right: 15px">
+        <span style="width: 170px; padding-left: 20px; font-size: 15px">Tổng số: {{ this.totalItems }} </span>
+      </div>
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+        class=""
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="toolDeleteDialogHeading">Mã QR code</h4>
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+      <span>Đóng</span>
+    </button>
+  </div>
+</ng-template>

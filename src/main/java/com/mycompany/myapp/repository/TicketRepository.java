@@ -48,4 +48,23 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
         @Param("department") String department,
         Pageable pageable
     );
+
+    @Query(
+        "select a from Ticket a where a.phone LIKE %:searchPhone% AND a.serviceType LIKE %:searchService% AND a.createdTime = TO_DATE(:searchTime, 'YYYY-MM-DD') AND a.shopCode = :shopCode"
+    )
+    Page<Ticket> listTicketShopCode(
+        @Param("searchPhone") String searchPhone,
+        @Param("searchService") String searchService,
+        @Param("searchTime") String searchTime,
+        @Param("shopCode") String shopCode,
+        Pageable pageable
+    );
+
+    @Query("select a from Ticket a where a.phone LIKE %:searchPhone% AND a.serviceType LIKE %:searchService% AND a.shopCode = :shopCode")
+    Page<Ticket> listTicketNoTimeShopCode(
+        @Param("searchPhone") String searchPhone,
+        @Param("searchService") String searchService,
+        @Param("shopCode") String shopCode,
+        Pageable pageable
+    );
 }

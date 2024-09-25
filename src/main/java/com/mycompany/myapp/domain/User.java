@@ -88,6 +88,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "contact")
     private String contact;
 
+    @Column(name = "shop_code")
+    private String shopCode;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -233,6 +236,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public String getShopCode() {
+        return shopCode;
+    }
+
+    public void setShopCode(String shopCode) {
+        this.shopCode = shopCode;
     }
 
     @Override

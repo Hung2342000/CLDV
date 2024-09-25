@@ -13,6 +13,7 @@ import { TicketDetailComponent } from '../detail/ticket-detail.component';
 import dayjs from 'dayjs/esm';
 import { DATE_FORMAT } from '../../../config/input.constants';
 import { IDepartment } from '../department.model';
+import { IShop } from '../../shop/shop.model';
 
 @Component({
   selector: 'jhi-ticket',
@@ -31,6 +32,7 @@ export class TicketComponent implements OnInit {
   searchService?: string = '';
   searchTime?: dayjs.Dayjs;
   departments?: IDepartment[] | any;
+  shops?: IShop[] | any;
 
   constructor(
     protected ticketService: TicketService,
@@ -64,6 +66,11 @@ export class TicketComponent implements OnInit {
     this.ticketService.queryDepartment().subscribe({
       next: (res: HttpResponse<IDepartment[]>) => {
         this.departments = res.body;
+      },
+    });
+    this.ticketService.queryShop().subscribe({
+      next: (res: HttpResponse<IShop[]>) => {
+        this.shops = res.body;
       },
     });
   }
@@ -110,6 +117,16 @@ export class TicketComponent implements OnInit {
     for (let i = 0; i < this.departments.length; i++) {
       if (code?.includes(this.departments[i].code)) {
         name = this.departments[i].province;
+      }
+    }
+    return name;
+  }
+
+  shopName(code: string | null | undefined): any {
+    let name = code;
+    for (let i = 0; i < this.shops.length; i++) {
+      if (code?.includes(this.shops[i].shopCode)) {
+        name = this.shops[i].name;
       }
     }
     return name;

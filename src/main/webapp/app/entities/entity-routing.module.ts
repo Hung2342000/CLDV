@@ -20,6 +20,11 @@ import { CustomerRequestModule } from './customer-request/customer-request.modul
         data: { pageTitle: 'qldvApp.report.home.title' },
         loadChildren: () => import('./customer-request/customer-request.module').then(m => m.CustomerRequestModule),
       },
+      {
+        path: 'shop',
+        data: { pageTitle: 'qldvApp.report.home.title' },
+        loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

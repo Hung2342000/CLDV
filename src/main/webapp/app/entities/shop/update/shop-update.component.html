@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-ticket-heading" data-cy="ShopCreateUpdateHeading">Cửa hàng giao dịch</h2>
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row mb-3">
+              <label class="form-label" for="field_shopCode">Mã cửa hàng</label>
+              <input type="text" class="form-control" name="shopCode" id="field_shopCode" data-cy="shopCode" formControlName="shopCode" />
+            </div>
+            <div class="row mb-3">
+              <label class="form-label" for="field_name">Tên cửa hàng</label>
+              <input type="text" class="form-control" name="shopCode" id="field_name" data-cy="name" formControlName="name" />
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="row mb-3">
+              <label class="form-label" for="field_address">Địa chỉ</label>
+              <input type="text" class="form-control" name="shopCode" id="field_address" data-cy="address" formControlName="address" />
+            </div>
+            <div class="row mb-3">
+              <label class="form-label" for="field_province">Tỉnh, thành phố</label>
+              <input type="text" class="form-control" name="province" id="field_province" data-cy="province" formControlName="province" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
+          <span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

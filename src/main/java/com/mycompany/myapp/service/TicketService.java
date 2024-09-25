@@ -69,7 +69,11 @@ public class TicketService {
             getAuthorities(authentication).anyMatch(authority -> Arrays.asList(USER).contains(authority)) &&
             !getAuthorities(authentication).anyMatch(authority -> Arrays.asList(ADMIN).contains(authority)) &&
             !getAuthorities(authentication).anyMatch(authority -> Arrays.asList(SUPERUSER).contains(authority))
-        ) {} else if (
+        ) {
+            if (searchTime == null || searchTime.equals("null")) {
+                page = ticketRepository.listTicketNoTimeShopCode(searchPhone, searchService, user.getShopCode(), pageable);
+            } else page = ticketRepository.listTicketShopCode(searchPhone, searchService, searchTime, user.getShopCode(), pageable);
+        } else if (
             authentication != null &&
             !getAuthorities(authentication).anyMatch(authority -> Arrays.asList(USER).contains(authority)) &&
             !getAuthorities(authentication).anyMatch(authority -> Arrays.asList(ADMIN).contains(authority)) &&

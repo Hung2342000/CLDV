@@ -114,7 +114,7 @@
           <!--          <td (dblclick)="view(ticket)">{{ ticket.status }}</td>-->
           <td (dblclick)="view(ticket)">{{ ticket.createdTime | formatDateVnPipe }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.changeBy }}</td>
-          <td (dblclick)="view(ticket)">{{ ticket.shopCode }}</td>
+          <td (dblclick)="view(ticket)">{{ shopName(ticket.shopCode) }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.closedTime | formatDateVnPipe }}</td>
           <td (dblclick)="view(ticket)">{{ ticket.smsReceived }}</td>
           <td (dblclick)="view(ticket)">{{ departmentName(ticket.province) }}</td>

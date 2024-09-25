@@ -91,6 +91,8 @@ public class SecurityConfiguration {
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
+            .antMatchers("/api/department/all/province").permitAll()
+            .antMatchers("/api/shop/**").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
             .antMatchers("/api/tickets").permitAll()
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)

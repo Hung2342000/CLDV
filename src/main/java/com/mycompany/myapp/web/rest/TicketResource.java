@@ -64,6 +64,7 @@ public class TicketResource {
             throw new BadRequestAlertException("A new ticket cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ticket.setCreatedTime(LocalDate.now());
+        ticket.setStatus("Mở");
         Ticket result = ticketRepository.save(ticket);
         return ResponseEntity
             .created(new URI("/api/tickets/" + result.getId()))

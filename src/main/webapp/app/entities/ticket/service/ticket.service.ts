@@ -10,6 +10,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { ITicket, getTicketIdentifier } from '../ticket.model';
 import { IDepartment } from '../department.model';
+import { IShop } from '../../shop/shop.model';
 
 export type EntityResponseType = HttpResponse<ITicket>;
 export type EntityArrayResponseType = HttpResponse<ITicket[]>;
@@ -18,6 +19,7 @@ export type EntityArrayResponseType = HttpResponse<ITicket[]>;
 export class TicketService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/tickets');
   protected resourceUrlDepartment = this.applicationConfigService.getEndpointFor('api/department/all');
+  protected resourceUrlShop = this.applicationConfigService.getEndpointFor('api/shop');
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(ticket: ITicket): Observable<EntityResponseType> {
@@ -36,6 +38,9 @@ export class TicketService {
 
   queryDepartment(): Observable<EntityArrayResponseType> {
     return this.http.get<IDepartment[]>(this.resourceUrlDepartment + '/province', { observe: 'response' });
+  }
+  queryShop(): Observable<HttpResponse<IShop[]>> {
+    return this.http.get<IShop[]>(this.resourceUrlShop + '/all', { observe: 'response' });
   }
   partialUpdate(ticket: ITicket): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(ticket);
