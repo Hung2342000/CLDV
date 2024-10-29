@@ -1,9 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">
-        Ticket
-      </h2>
+      <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">Ticket</h2>
       <div>
         <jhi-alert-error></jhi-alert-error>
         <div class="row">
@@ -27,16 +25,11 @@
 
             <div class="row mb-3">
               <label class="form-label" jhiTranslate="qldvApp.ticket.status" for="field_status">Status</label>
-              <select
-                class="form-select"
-                id="field_status"
-                formControlName="status"
-                data-cy="status"
-              >
+              <select class="form-select" id="field_status" formControlName="status" data-cy="status">
                 <option value="Đóng">Đóng</option>
                 <option value="Mở">Mở</option>
               </select>
-<!--              <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />-->
+              <!--              <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />-->
             </div>
 
             <div class="row mb-3">
@@ -82,7 +75,9 @@
                   #closedTimeDp="ngbDatepicker"
                   formControlName="closedTime"
                 />
-                <button type="button" class="btn btn-secondary" (click)="closedTimeDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                <button type="button" class="btn btn-secondary" (click)="closedTimeDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
               </div>
             </div>
 
@@ -105,13 +100,7 @@
 
             <div class="row mb-3">
               <label class="form-label" jhiTranslate="qldvApp.ticket.smsStatus" for="field_smsStatus">Sms Status</label>
-              <select
-                class="form-select"
-                id="field_smsStatus"
-                formControlName="smsStatus"
-                name="smsStatus"
-                data-cy="smsStatus"
-              >
+              <select class="form-select" id="field_smsStatus" formControlName="smsStatus" name="smsStatus" data-cy="smsStatus">
                 <option value="Đã gửi">Đã gửi</option>
                 <option value="Tốt">Tốt</option>
                 <option value="Không tốt">Không tốt</option>
@@ -121,12 +110,7 @@
 
             <div class="row mb-3">
               <label class="form-label" jhiTranslate="qldvApp.ticket.callingStatus" for="field_callingStatus">Calling Status</label>
-              <select
-                class="form-select"
-                id="field_callingStatus"
-                formControlName="callingStatus"
-                data-cy="callingStatus"
-              >
+              <select class="form-select" id="field_callingStatus" formControlName="callingStatus" data-cy="callingStatus">
                 <option value="Đã gọi">Đã gọi</option>
                 <option value="Chưa gọi">Chưa gọi</option>
               </select>
@@ -143,12 +127,7 @@
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          class="btn btn-primary"
-        >
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
           <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>

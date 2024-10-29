@@ -1,0 +1,37 @@
+<nav class="navbar navbar-light bg-light navbar-vertical">
+  <div class="container-fluid d-flex flex-column align-items-start">
+    <a class="navbar-brand logo" routerLink="/">
+      <span class="navbar-title">Chất lượng dịch vụ</span>
+    </a>
+    <ul class="navbar-nav flex-column w-100">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+          <fa-icon icon="home"></fa-icon>
+          <span jhiTranslate="global.menu.home">Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/customer-request" (click)="collapseNavbar()">
+          <fa-icon icon="home"></fa-icon>
+          <span>Yêu cầu</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="ticket" (click)="collapseNavbar()">
+          <fa-icon icon="th-list"></fa-icon>
+          <span jhiTranslate="global.menu.entities.ticket">Ticket</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="shop" (click)="collapseNavbar()">
+          <span>Cửa hàng</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="report" (click)="collapseNavbar()">
+          <span jhiTranslate="global.menu.entities.report">Report</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

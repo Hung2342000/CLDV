@@ -1,6 +1,6 @@
-<div>
+<div class="card jh-card">
   <h2 id="page-heading" data-cy="shopHeading">
-    <span>Hệ thống cửa hàng</span>
+    <span>Danh sách cửa hàng</span>
 
     <div class="d-flex justify-content-end">
       <button
@@ -17,7 +17,7 @@
     <table class="table table-hover" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th class="text-center" style="width: 5%" scope="col" jhiSortBy="id"><span>Stt</span> <fa-icon icon="sort"></fa-icon></th>
+          <th class="text-center" style="width: 5%" scope="col" jhiSortBy="id"><span>STT</span> <fa-icon icon="sort"></fa-icon></th>
           <th style="width: 15%" class="text-center" scope="col" jhiSortBy="shopCode">
             <span>Mã cửa hàng</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -55,7 +55,13 @@
             />
           </th>
           <th class="text-center" scope="col">
-            <select style="border-radius: 7%; height: 30px" id="departmentSelect" [(ngModel)]="searchProvince" (change)="loadPageSearch()">
+            <select
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              style="border-radius: 7%; height: 30px"
+              id="departmentSelect"
+              [(ngModel)]="searchProvince"
+              (change)="loadPageSearch()"
+            >
               <option [value]=""></option>
               <option *ngFor="let department of departments" [value]="department.code">{{ department.province }}</option>
             </select>
@@ -74,7 +80,7 @@
           <td class="text-end">
             <div class="btn-group">
               <button type="submit" (click)="view(shop)" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
+                <fa-icon icon="qrcode"></fa-icon>
               </button>
               <button type="submit" [routerLink]="['/shop', shop.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>

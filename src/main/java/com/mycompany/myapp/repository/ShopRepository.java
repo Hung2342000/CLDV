@@ -18,7 +18,27 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     Shop findShopByShopCode(String shopCode);
 
     @Query(
-        "select s from Shop s WHERE LOWER(s.shopCode) like %:searchShopCode% and  LOWER(s.name) like %:searchName% and  LOWER(s.province) like %:searchProvince%"
+        "select s from Shop s WHERE LOWER(s.name) like %:searchName% and  LOWER(s.province) like %:searchProvince% and s.shopCode like %:shopCode%"
+    )
+    Page<Shop> findAllShopCode(
+        @Param("searchName") String searchName,
+        @Param("searchProvince") String searchProvince,
+        @Param("shopCode") String shopCode,
+        Pageable pageable
+    );
+
+    @Query(
+        "select s from Shop s WHERE LOWER(s.shopCode) like %:searchShopCode% and  LOWER(s.name) like %:searchName% and s.province like %:province%"
+    )
+    Page<Shop> findAllProvince(
+        @Param("searchShopCode") String searchShopCode,
+        @Param("searchName") String searchName,
+        @Param("province") String province,
+        Pageable pageable
+    );
+
+    @Query(
+        "select s from Shop s WHERE LOWER(s.shopCode) like %:searchShopCode% and  LOWER(s.name) like %:searchName% and  LOWER(s.province) like %:searchProvince% "
     )
     Page<Shop> findAll(
         @Param("searchShopCode") String searchShopCode,

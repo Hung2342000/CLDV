@@ -1,0 +1,60 @@
+.navbar-vertical {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding-top: 20px;
+  border-right: 1px solid #ddd;
+}
+
+.navbar-vertical .nav-link {
+  color: #000;
+  padding: 10px 20px;
+  display: block;
+}
+
+.navbar-vertical .nav-item {
+  margin-top: 10px;
+  width: 100%;
+  list-style: none;
+}
+
+.content-area {
+  margin-left: 200px;
+  padding: 20px;
+}
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Đảm bảo danh sách nav chiếm toàn bộ chiều rộng */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px; /* khoảng cách phía dưới */
+}
+
+.navbar-vertical .container-fluid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Đảm bảo các mục căn lề trái */
+}
+
+.nav-item .nav-link {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #000; /* Màu chữ mặc định */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Thêm hiệu ứng chuyển mượt mà */
+}
+
+.nav-link:hover {
+  background-color: #007bff;
+  color: #fff;
+}

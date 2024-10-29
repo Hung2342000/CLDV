@@ -1,57 +1,133 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-6">
-            <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">Chào mừng quý khách đến với cửa hàng giao dịch</h2>
-            <div class="row mb-3">
-              <label class="form-label" jhiTranslate="qldvApp.ticket.phone" for="field_phone">Phone</label>
-              <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
-            </div>
+<!--<div class="survey-container">-->
+<!--  &lt;!&ndash; Chào mừng &ndash;&gt;-->
+<!--  <div class="welcome-message">-->
+<!--    <h3>Chào mừng quý khách đến với! </h3>-->
+<!--    <h3>{{shopName(this.shopCode)}}</h3>-->
+<!--    <p>Chúng tôi rất vui khi được phục vụ quý khách. Quý khách vui lòng nhập yêu cầu để giải quyết.</p>-->
+<!--  </div>-->
 
-            <div class="row mb-3">
-              <label class="form-label" jhiTranslate="qldvApp.ticket.serviceType" for="field_serviceType">Service Type</label>
-              <select class="form-select" id="field_serviceType" name="serviceType" formControlName="serviceType" data-cy="serviceType">
-                <option value="Thay sim">Thay sim</option>
-                <option value="Thanh toán cước">Thanh toán cước</option>
-              </select>
-            </div>
+<!--&lt;!&ndash;  <h2>Khảo sát chất lượng dịch vụ</h2>&ndash;&gt;-->
 
-            <!--            <div class="row mb-3">-->
-            <!--              <label class="form-label" jhiTranslate="qldvApp.ticket.province" for="field_province">Province</label>-->
-            <!--              <select class="form-select" id="field_province" name="province" formControlName="province" data-cy="province">-->
-            <!--                <option value=""></option>-->
-            <!--                <option *ngFor="let department of departments" [value]="department.code">{{ department.province }}</option>-->
-            <!--              </select>-->
-            <!--            </div>-->
-            <div>
-              <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-                <span jhiTranslate="entity.action.cancel">Cancel</span>
-              </button>
-              <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">
-                <span>Gửi</span>
-              </button>
-            </div>
+<!--  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">-->
+<!--    &lt;!&ndash; Họ tên &ndash;&gt;-->
+<!--    <div class="form-group">-->
+<!--      <label class="form-label" for="field_phone">Số điện thoại</label>-->
+<!--      <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" placeholder="Nhập số điện thoại của bạn" />-->
+<!--    </div>-->
+
+<!-- Đánh giá chung -->
+<!--    <div class="form-group">-->
+<!--      <label class="form-label" for="field_serviceType">Loại dịch vụ</label>-->
+<!--      <select class="form-select" id="field_serviceType" name="serviceType" formControlName="serviceType" data-cy="serviceType">-->
+<!--        <option value="" disabled selected>Chọn loại dịch vụ</option>-->
+<!--        <option value="Thay sim">Thay sim</option>-->
+<!--        <option value="Thanh toán cước">Thanh toán cước</option>-->
+<!--      </select>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Submit button &ndash;&gt;-->
+<!--    <div class="form-group text-center">-->
+<!--      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary">-->
+<!--        Gửi khảo sát-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Modal cảm ơn &ndash;&gt;-->
+<!--<ng-template #content let-modal>-->
+<!--  <div class="modal-body text-center">-->
+<!--    <h4 class="modal-title mb-3">Cảm ơn quý khách!</h4>-->
+<!--    <p>Cảm ơn quý khách đã dành thời gian sử dụng dịch vụ của chúng tôi. Hy vọng sẽ sớm được phục vụ quý khách trong tương lai.</p>-->
+<!--  </div>-->
+<!--  <div class="modal-footer justify-content-center">-->
+<!--    <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Đóng</button>-->
+<!--  </div>-->
+<!--</ng-template>-->
+<body>
+  <header>
+    <!--  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2a642be4a0e80d74d0a61c96d036dfed77afdd85792dd6873ce3cd3e3433a07d?placeholderIfAbsent=true&apiKey=20452eacdbdf46a886bd1750a8ad6bbc" alt="MobiFone logo" class="logo" />-->
+    <h1 class="welcome-heading">CHÀO MỪNG QUÝ KHÁCH</h1>
+    <hr class="divider" />
+  </header>
+
+  <div class="content">
+    <div class="info-container">
+      <div class="info-item">
+        <fa-icon icon="map-marker"></fa-icon>
+        <p class="info-text">
+          <span style="color: #f2b819">MobiFone</span>
+          <br />
+          {{ shopProvinceName(this.shopCode) }}
+        </p>
+        <!--      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6ee44e32466673fcbbf0da5256e79ed0a599fe8372549508f783250ff839ffa?placeholderIfAbsent=true&apiKey=20452eacdbdf46a886bd1750a8ad6bbc" alt="" class="info-icon" />-->
+      </div>
+      <div class="info-item">
+        <fa-icon icon="map-marker"></fa-icon>
+        <p class="info-text">
+          <span style="color: #f2b819">Phòng giao dịch</span>
+          <br />
+          {{ shopName(this.shopCode) }}
+        </p>
+
+        <!--      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/330ad2e5934d44540b54b71d75319c0a78940471efcac3cfb9cda44780309943?placeholderIfAbsent=true&apiKey=20452eacdbdf46a886bd1750a8ad6bbc" alt="" class="info-icon" />-->
+      </div>
+    </div>
+    <div class="form-container">
+      <p class="form-description">
+        Cảm ơn quý khách đã lựa chọn MobiFone.
+        <br />
+        Vui lòng nhập thông tin bên dưới để
+        <br />
+        chúng tôi có thể xử lý yêu cầu nhanh nhất
+      </p>
+      <form class="form-fields" name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class="input-group">
+          <div class="input-wrapper">
+            <label for="phone" class="input-label">Số điện thoại</label>
+            <input
+              name="phone"
+              id="field_phone"
+              data-cy="phone"
+              formControlName="phone"
+              placeholder="Nhập số điện thoại của bạn"
+              type="tel"
+              id="phone"
+              class="input-field"
+              required
+            />
+          </div>
+          <div *ngIf="editForm.get('phone')?.invalid && editForm.get('phone')?.touched" class="errorCheck">
+            <span *ngIf="editForm.get('phone')?.errors?.['required']">Số điện thoại là bắt buộc.</span>
+            <span *ngIf="editForm.get('phone')?.errors?.['pattern']">Số điện thoại không đúng định dạng.</span>
+          </div>
+          <div class="input-wrapper">
+            <label for="service" class="input-label">Loại dịch vụ</label>
+            <select
+              id="service"
+              class="input-field"
+              id="field_serviceType"
+              name="serviceType"
+              formControlName="serviceType"
+              data-cy="serviceType"
+            >
+              <option value="Thay sim">Thay sim</option>
+              <option value="Thanh toán cước">Thanh toán cước</option>
+            </select>
           </div>
         </div>
-      </div>
-    </form>
+        <button type="submit" class="submit-button">Gửi yêu cầu</button>
+      </form>
+    </div>
   </div>
-</div>
+</body>
+<!-- Modal cảm ơn -->
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" data-cy="toolDeleteDialogHeading">Thông báo</h4>
-    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()"></button>
+  <div class="modal-body text-center">
+    <h4 class="modal-title mb-3">Cảm ơn quý khách!</h4>
+    <p>{{ this.modalContent }}</p>
   </div>
-  <div class="modal-body">
-    <p>Cảm ơn quý khách</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
-      <span>Đóng</span>
-    </button>
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Đóng</button>
   </div>
 </ng-template>

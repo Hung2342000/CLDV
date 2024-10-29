@@ -1,4 +1,4 @@
-import { Component, OnInit, RendererFactory2, Renderer2 } from '@angular/core';
+import { Component, OnInit, RendererFactory2, Renderer2, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { AccountService } from 'app/core/auth/account.service';
   templateUrl: './main.component.html',
 })
 export class MainComponent implements OnInit {
+  checkLogin = false;
   private renderer: Renderer2;
 
   constructor(
@@ -26,6 +27,9 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     // try to log in automatically
     this.accountService.identity().subscribe();
+    if (sessionStorage.getItem('jhi-authenticationToken')) {
+      this.checkLogin = true;
+    }
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

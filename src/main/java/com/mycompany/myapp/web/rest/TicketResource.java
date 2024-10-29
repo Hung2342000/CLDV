@@ -105,6 +105,29 @@ public class TicketResource {
             .body(result);
     }
 
+    @PutMapping("/tickets/close/{id}")
+    public ResponseEntity<Ticket> updateTicketClose(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody Ticket ticket
+    ) throws URISyntaxException {
+        log.debug("REST request to update Ticket : {}, {}", id, ticket);
+        if (ticket.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, ticket.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!ticketRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        Ticket result = ticketService.updateTicketClose(ticket);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, ticket.getId().toString()))
+            .body(result);
+    }
+
     /**
      * {@code PATCH  /tickets/:id} : Partial updates given fields of an existing ticket, field will ignore if it is null
      *
@@ -194,10 +217,11 @@ public class TicketResource {
         @org.springdoc.api.annotations.ParameterObject Pageable pageable,
         String searchPhone,
         String searchService,
-        String searchTime
+        String searchTime,
+        String searchProvince
     ) {
         log.debug("REST request to get a page of Tickets");
-        Page<Ticket> page = ticketService.getAllTickets(pageable, searchPhone, searchService, searchTime);
+        Page<Ticket> page = ticketService.getAllTickets(pageable, searchPhone, searchService, searchTime, searchProvince);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

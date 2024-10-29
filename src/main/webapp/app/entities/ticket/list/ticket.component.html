@@ -1,4 +1,4 @@
-<div>
+<div class="card jh-card">
   <h2 id="page-heading" data-cy="TicketHeading">
     <span jhiTranslate="qldvApp.ticket.home.title">Tickets</span>
 
@@ -17,7 +17,9 @@
     <table class="table table-hover" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="qldvApp.ticket.id">Stt</span> <fa-icon icon="sort"></fa-icon></th>
+          <th style="width: 4%" scope="col" jhiSortBy="id">
+            <span jhiTranslate="qldvApp.ticket.id">STT</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="phone"><span jhiTranslate="qldvApp.ticket.phone">Phone</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="serviceType">
             <span jhiTranslate="qldvApp.ticket.serviceType">Service Type</span> <fa-icon icon="sort"></fa-icon>
@@ -48,7 +50,7 @@
             <span jhiTranslate="qldvApp.ticket.callingStatus">Calling Status</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="note"><span jhiTranslate="qldvApp.ticket.note">Note</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col"></th>
+          <th scope="col">Thao tác</th>
         </tr>
         <tr style="border-bottom: 1px solid">
           <th scope="col"></th>
@@ -97,7 +99,18 @@
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
-          <th class="text-center" scope="col"></th>
+          <th class="text-center" scope="col">
+            <select
+              *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              style="border-radius: 7%; height: 30px"
+              id="departmentSelect"
+              [(ngModel)]="searchProvince"
+              (change)="loadPageSearch()"
+            >
+              <option [value]=""></option>
+              <option *ngFor="let department of departments" [value]="department.code">{{ department.province }}</option>
+            </select>
+          </th>
           <th class="text-center" scope="col"></th>
           <th class="text-center" scope="col"></th>
           <th class="text-center" scope="col"></th>
@@ -126,14 +139,21 @@
               <button type="submit" (click)="view(ticket)" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
               </button>
-
-              <button type="submit" [routerLink]="['/ticket', ticket.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
+              <button
+                *ngIf="ticket.callingStatus !== 'Đã gọi' && !checkAdmin"
+                type="submit"
+                (click)="closeCalling(ticket)"
+                class="btn btn-danger btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="phone"></fa-icon>
               </button>
-
-              <button type="submit" (click)="delete(ticket)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-              </button>
+              <!--              <button type="submit" [routerLink]="['/ticket', ticket.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">-->
+              <!--                <fa-icon icon="pencil-alt"></fa-icon>-->
+              <!--              </button>-->
+              <!--              <button type="submit" (click)="delete(ticket)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">-->
+              <!--                <fa-icon icon="times"></fa-icon>-->
+              <!--              </button>-->
             </div>
           </td>
         </tr>
@@ -180,3 +200,17 @@
     </div>
   </div>
 </div>
+<ng-template #contentCalling let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="toolDeleteDialogHeading">Thông báo</h4>
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ this.modalContent }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+      <span>Đóng</span>
+    </button>
+  </div>
+</ng-template>

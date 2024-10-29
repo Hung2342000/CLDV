@@ -40,21 +40,28 @@ public class TicketService {
     }
 
     public Ticket updateTicket(Ticket ticket) {
+        ticketRepository.save(ticket);
+        return ticket;
+    }
+
+    public Ticket updateTicketClose(Ticket ticket) {
         String username;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         UserDetails userDetails = (UserDetails) principal;
         username = userDetails.getUsername();
         User user = userRepository.findOneByLogin(username).get();
-        if (ticket.getClosedTime() == null && ticket.getStatus().equals("Đã đóng")) {
-            ticket.setClosedTime(LocalDate.now());
-            ticket.setChangeBy(user.getName());
-        }
-        ticketRepository.save(ticket);
+        ticketRepository.SMS_KHAO_SAT(ticket.getId().toString(), ticket.getPhone(), user.getName());
         return ticket;
     }
 
-    public Page<Ticket> getAllTickets(Pageable pageable, String searchPhone, String searchService, String searchTime) {
+    public Page<Ticket> getAllTickets(
+        Pageable pageable,
+        String searchPhone,
+        String searchService,
+        String searchTime,
+        String searchProvince
+    ) {
         Page<Ticket> page = new PageImpl<>(Collections.emptyList(), PageRequest.of(0, 10), 0);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -71,8 +78,21 @@ public class TicketService {
             !getAuthorities(authentication).anyMatch(authority -> Arrays.asList(SUPERUSER).contains(authority))
         ) {
             if (searchTime == null || searchTime.equals("null")) {
-                page = ticketRepository.listTicketNoTimeShopCode(searchPhone, searchService, user.getShopCode(), pageable);
-            } else page = ticketRepository.listTicketShopCode(searchPhone, searchService, searchTime, user.getShopCode(), pageable);
+                page =
+                    ticketRepository.listTicketNoTimeShopCode(
+                        searchPhone.toLowerCase(),
+                        searchService.toLowerCase(),
+                        user.getShopCode(),
+                        pageable
+                    );
+            } else page =
+                ticketRepository.listTicketShopCode(
+                    searchPhone.toLowerCase(),
+                    searchService.toLowerCase(),
+                    searchTime,
+                    user.getShopCode(),
+                    pageable
+                );
         } else if (
             authentication != null &&
             !getAuthorities(authentication).anyMatch(authority -> Arrays.asList(USER).contains(authority)) &&
@@ -80,12 +100,26 @@ public class TicketService {
             getAuthorities(authentication).anyMatch(authority -> Arrays.asList(SUPERUSER).contains(authority))
         ) {
             if (searchTime == null || searchTime.equals("null")) {
-                page = ticketRepository.listTicketNoTimeDepartment(searchPhone, searchService, user.getDepartment(), pageable);
-            } else page = ticketRepository.listTicketDepartment(searchPhone, searchService, searchTime, user.getDepartment(), pageable);
+                page =
+                    ticketRepository.listTicketNoTimeDepartment(
+                        searchPhone.toLowerCase(),
+                        searchService.toLowerCase(),
+                        user.getDepartment(),
+                        pageable
+                    );
+            } else page =
+                ticketRepository.listTicketDepartment(
+                    searchPhone.toLowerCase(),
+                    searchService.toLowerCase(),
+                    searchTime,
+                    user.getDepartment(),
+                    pageable
+                );
         } else {
             if (searchTime == null || searchTime.equals("null")) {
-                page = ticketRepository.listTicketNoTime(searchPhone, searchService, pageable);
-            } else page = ticketRepository.listTicket(searchPhone, searchService, searchTime, pageable);
+                page = ticketRepository.listTicketNoTime(searchPhone.toLowerCase(), searchService.toLowerCase(), searchProvince, pageable);
+            } else page =
+                ticketRepository.listTicket(searchPhone.toLowerCase(), searchService.toLowerCase(), searchTime, searchProvince, pageable);
         }
         return page;
     }

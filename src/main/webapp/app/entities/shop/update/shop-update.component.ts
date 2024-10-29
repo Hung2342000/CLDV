@@ -10,11 +10,12 @@ import { IDepartment } from '../../ticket/department.model';
 import { TicketService } from '../../ticket/service/ticket.service';
 
 @Component({
-  selector: 'jhi-customer-request-update',
+  selector: 'jhi-shop-update',
   templateUrl: './shop-update.component.html',
 })
 export class ShopUpdateComponent implements OnInit {
   isSaving = false;
+  isEdit = false;
   departments?: IDepartment[] | any;
 
   editForm = this.fb.group({
@@ -34,6 +35,9 @@ export class ShopUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ ticket }) => {
+      if (ticket.id !== null && ticket.id !== undefined) {
+        this.isEdit = true;
+      }
       this.updateForm(ticket);
     });
     this.ticketService.queryDepartment().subscribe({

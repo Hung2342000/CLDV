@@ -16,7 +16,7 @@ export type EntityArrayResponseType = HttpResponse<ITicket[]>;
 @Injectable({ providedIn: 'root' })
 export class CustomerRequestService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/tickets');
-
+  protected resourceUrlClose = this.applicationConfigService.getEndpointFor('api/tickets/close');
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(ticket: ITicket): Observable<EntityResponseType> {
@@ -33,10 +33,10 @@ export class CustomerRequestService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  partialUpdate(ticket: ITicket): Observable<EntityResponseType> {
+  updateClose(ticket: ITicket): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(ticket);
     return this.http
-      .patch<ITicket>(`${this.resourceUrl}/${getTicketIdentifier(ticket) as number}`, copy, { observe: 'response' })
+      .put<ITicket>(`${this.resourceUrlClose}/${getTicketIdentifier(ticket) as number}`, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -55,23 +55,6 @@ export class CustomerRequestService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  addTicketToCollectionIfMissing(ticketCollection: ITicket[], ...ticketsToCheck: (ITicket | null | undefined)[]): ITicket[] {
-    const tickets: ITicket[] = ticketsToCheck.filter(isPresent);
-    if (tickets.length > 0) {
-      const ticketCollectionIdentifiers = ticketCollection.map(ticketItem => getTicketIdentifier(ticketItem)!);
-      const ticketsToAdd = tickets.filter(ticketItem => {
-        const ticketIdentifier = getTicketIdentifier(ticketItem);
-        if (ticketIdentifier == null || ticketCollectionIdentifiers.includes(ticketIdentifier)) {
-          return false;
-        }
-        ticketCollectionIdentifiers.push(ticketIdentifier);
-        return true;
-      });
-      return [...ticketsToAdd, ...ticketCollection];
-    }
-    return ticketCollection;
   }
 
   protected convertDateFromClient(ticket: ITicket): ITicket {

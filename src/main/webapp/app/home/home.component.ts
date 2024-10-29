@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   shops?: IShop[] | any;
   editForm = this.fb.group({
     id: [null, [Validators.required]],
-    phone: [],
+    phone: ['', [Validators.required, Validators.pattern('^(0?)(3|5|7|8|9)[0-9]{8}$')]],
     serviceType: [],
     province: [],
   });
@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.shopCode = this.activatedRoute.snapshot.paramMap.get('shopCode');
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
@@ -76,13 +77,47 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     return name;
   }
+  shopProvinceName(code: string | null | undefined): any {
+    let name = code;
+    for (let i = 0; i < this.shops.length; i++) {
+      if (code?.includes(this.shops[i].shopCode)) {
+        name = this.shops[i].province;
+      }
+    }
+    return this.shopDepartment(name);
+  }
+  shopDepartment(code: string | null | undefined): any {
+    let name = code;
+    for (let i = 0; i < this.departments.length; i++) {
+      if (code?.includes(this.departments[i].code)) {
+        name = this.departments[i].province;
+      }
+    }
+    return name;
+  }
+  shopName(code: string | null | undefined): any {
+    let name = code;
+    for (let i = 0; i < this.shops.length; i++) {
+      if (code?.includes(this.shops[i].shopCode)) {
+        name = this.shops[i].name;
+      }
+    }
+    return name;
+  }
   save(): void {
-    this.shopCode = this.activatedRoute.snapshot.paramMap.get('shopCode');
     this.isSaving = true;
     const ticket = this.createFromForm();
     ticket.shopCode = this.shopCode;
     ticket.province = this.shopProvince(this.shopCode);
-    this.subscribeToSaveResponse(this.ticketService.create(ticket));
+    if (this.editForm.valid) {
+      // Xử lý logic khi form hợp lệ
+      this.modalContent =
+        'Cảm ơn quý khách đã dành thời gian sử dụng dịch vụ của chúng tôi. Hy vọng sẽ sớm được phục vụ quý khách trong tương lai.';
+      this.subscribeToSaveResponse(this.ticketService.create(ticket));
+    } else {
+      this.modalContent = 'Thông tin chưa hợp lệ.Quý khách vui lòng nhập lại';
+      this.previousState();
+    }
   }
   previousState(): void {
     this.modalService.open(this.content, { size: 'md', backdrop: 'static' });

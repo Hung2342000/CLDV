@@ -1,4 +1,4 @@
-<div>
+<div class="card jh-card">
   <h2 id="page-heading" data-cy="TicketHeading">
     <span>Yêu cầu khách hàng</span>
 
@@ -29,7 +29,7 @@
           <th class="text-center" scope="col" jhiSortBy="createdTime">
             <span jhiTranslate="qldvApp.ticket.createdTime">Created Time</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th class="text-center" scope="col">Đóng yêu cầu</th>
+          <th *jhiHasAnyAuthority="'ROLE_USER'" class="text-center" scope="col">Đóng yêu cầu</th>
         </tr>
         <tr style="border-bottom: 1px solid">
           <th scope="col"></th>
@@ -74,8 +74,7 @@
               </button>
             </div>
           </th>
-          <th scope="col"></th>
-          <th scope="col"></th>
+          <th *jhiHasAnyAuthority="'ROLE_USER'" scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -84,10 +83,10 @@
           <td class="text-center">{{ ticket.phone }}</td>
           <td class="text-center">{{ ticket.serviceType }}</td>
           <td class="text-center">{{ ticket.createdTime | formatDateVnPipe }}</td>
-          <td class="text-center">
+          <td *jhiHasAnyAuthority="'ROLE_USER'" class="text-center">
             <div class="btn-group">
               <button
-                *ngIf="ticket.closedTime"
+                *ngIf="ticket.status === 'Đã đóng'"
                 disabled
                 type="submit"
                 (click)="closeCustomerRequest(ticket)"
@@ -97,7 +96,7 @@
                 <fa-icon icon="times"></fa-icon>
               </button>
               <button
-                *ngIf="!ticket.closedTime"
+                *ngIf="ticket.status !== 'Đã đóng'"
                 type="submit"
                 (click)="closeCustomerRequest(ticket)"
                 class="btn btn-danger btn-sm"
@@ -113,7 +112,7 @@
           <td class="text-center empty-row">&nbsp;</td>
           <td class="text-center empty-row">&nbsp;</td>
           <td class="text-center empty-row">&nbsp;</td>
-          <td class="text-center empty-row">&nbsp;</td>
+          <td *jhiHasAnyAuthority="'ROLE_USER'" class="text-center empty-row">&nbsp;</td>
         </tr>
       </tbody>
     </table>

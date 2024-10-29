@@ -32,6 +32,7 @@ export class CustomerRequestComponent implements OnInit {
   isSaving = false;
   searchPhone?: string = '';
   searchService?: string = '';
+  searchProvince?: string = '';
   searchTime?: dayjs.Dayjs;
   constructor(
     protected ticketService: CustomerRequestService,
@@ -52,6 +53,7 @@ export class CustomerRequestComponent implements OnInit {
         searchPhone: this.searchPhone,
         searchService: this.searchService,
         searchTime: this.searchTime?.isValid() ? this.searchTime.format(DATE_FORMAT) : null,
+        searchProvince: this.searchProvince,
       })
       .subscribe({
         next: (res: HttpResponse<ITicket[]>) => {
@@ -74,7 +76,7 @@ export class CustomerRequestComponent implements OnInit {
     if (ticket.id !== undefined) {
       this.ticket = Object.assign({}, ticket);
       this.ticket.status = 'Đã đóng';
-      this.subscribeToSaveResponse(this.ticketService.update(this.ticket));
+      this.subscribeToSaveResponse(this.ticketService.updateClose(this.ticket));
     }
   }
   loadPageSearch(page?: number, dontNavigate?: boolean): void {
@@ -87,6 +89,7 @@ export class CustomerRequestComponent implements OnInit {
         searchPhone: this.searchPhone,
         searchService: this.searchService,
         searchTime: this.searchTime?.isValid() ? this.searchTime.format(DATE_FORMAT) : null,
+        searchProvince: this.searchProvince,
       })
       .subscribe({
         next: (res: HttpResponse<ITicket[]>) => {

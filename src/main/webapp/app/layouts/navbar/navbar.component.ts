@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
-
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
@@ -66,6 +65,7 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.collapseNavbar();
     this.loginService.logout();
+    location.reload();
     this.router.navigate(['/login']);
   }
 
