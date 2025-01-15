@@ -27,10 +27,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   shop?: IShop | null;
   departments?: IDepartment[] | any;
   shops?: IShop[] | any;
+  shopCheck?: IShop | any;
   editForm = this.fb.group({
     id: [null, [Validators.required]],
     phone: ['', [Validators.required, Validators.pattern('^(0?)(3|5|7|8|9)[0-9]{8}$')]],
-    serviceType: [],
+    serviceType: [null, [Validators.required]],
     province: [],
   });
   private readonly destroy$ = new Subject<void>();
@@ -45,6 +46,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.shopCode = this.activatedRoute.snapshot.paramMap.get('shopCode');
+    this.ticketService.findShop(typeof this.shopCode === 'string' ? this.shopCode : '').subscribe({
+      next: (res: HttpResponse<IShop>) => {
+        this.shopCheck = res.body;
+        if (this.shopCheck === null) {
+          this.router.navigate(['404']);
+        }
+      },
+    });
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
@@ -109,7 +118,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const ticket = this.createFromForm();
     ticket.shopCode = this.shopCode;
     ticket.province = this.shopProvince(this.shopCode);
-    if (this.editForm.valid) {
+    if (!this.editForm.get('phone')?.invalid && !this.editForm.get('serviceType')?.invalid) {
       // Xử lý logic khi form hợp lệ
       this.modalContent =
         'Cảm ơn quý khách đã dành thời gian sử dụng dịch vụ của chúng tôi. Hy vọng sẽ sớm được phục vụ quý khách trong tương lai.';

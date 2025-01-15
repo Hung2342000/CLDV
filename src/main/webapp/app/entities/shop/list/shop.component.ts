@@ -39,6 +39,7 @@ export class ShopComponent implements OnInit {
   searchProvince?: string = '';
   isSaving = false;
   departments?: IDepartment[] | any;
+  url: any;
   elementType: NgxQrcodeElementTypes = NgxQrcodeElementTypes.URL;
   constructor(
     protected ticketService: TicketService,
@@ -76,6 +77,7 @@ export class ShopComponent implements OnInit {
   view(shop: IShop): void {
     const modalRef = this.modalService.open(ShopDetailComponent, { size: 'sm', backdrop: 'static' });
     modalRef.componentInstance.shop = shop;
+    modalRef.componentInstance.url = this.url;
     this.shopQr = shop;
   }
 
@@ -110,6 +112,7 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.url = window.location.protocol + '//' + window.location.host + '/khaosat/';
     this.handleNavigation();
     this.ticketService.queryDepartment().subscribe({
       next: (res: HttpResponse<IDepartment[]>) => {

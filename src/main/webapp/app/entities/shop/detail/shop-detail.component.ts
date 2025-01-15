@@ -12,6 +12,7 @@ import { NgxQrcodeElementTypes } from 'ngx-qrcode2';
 })
 export class ShopDetailComponent {
   shop: IShop | null = null;
+  url: string | null = '';
   elementType: NgxQrcodeElementTypes = NgxQrcodeElementTypes.URL;
   constructor(protected activatedRoute: ActivatedRoute, protected activeModal: NgbActiveModal, protected router: Router) {}
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ShopService } from '../service/shop.service';
@@ -16,6 +16,7 @@ import { TicketService } from '../../ticket/service/ticket.service';
 export class ShopUpdateComponent implements OnInit {
   isSaving = false;
   isEdit = false;
+
   departments?: IDepartment[] | any;
 
   editForm = this.fb.group({
@@ -30,7 +31,8 @@ export class ShopUpdateComponent implements OnInit {
     protected ticketService: TicketService,
     protected shopService: ShopService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

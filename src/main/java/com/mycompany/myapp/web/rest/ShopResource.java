@@ -65,11 +65,18 @@ public class ShopResource {
             .body(result);
     }
 
-    @GetMapping("/shop/{id}")
-    public ResponseEntity<Shop> getShop(@PathVariable Long id) {
-        log.debug("REST request to get Shop : {}", id);
-        Optional<Shop> shop = shopRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(shop);
+    //    @GetMapping("/shop/{id}")
+    //    public ResponseEntity<Shop> getShop(@PathVariable Long id) {
+    //        log.debug("REST request to get Shop : {}", id);
+    //        Optional<Shop> shop = shopRepository.findById(id);
+    //        return ResponseUtil.wrapOrNotFound(shop);
+    //    }
+
+    @GetMapping("/shop/{shopCode}")
+    public ResponseEntity<Shop> getShopCheck(@PathVariable String shopCode) {
+        log.debug("REST request to get Shop : {}", shopCode);
+        Shop shop = shopRepository.findShopByShopCode(shopCode);
+        return ResponseEntity.ok().body(shop);
     }
 
     @GetMapping("/shop")

@@ -42,6 +42,10 @@ export class TicketService {
   queryShop(): Observable<HttpResponse<IShop[]>> {
     return this.http.get<IShop[]>(this.resourceUrlShop + '/all', { observe: 'response' });
   }
+
+  findShop(shopCode: string): Observable<HttpResponse<IShop>> {
+    return this.http.get<IShop>(`${this.resourceUrlShop}/${shopCode}`, { observe: 'response' });
+  }
   partialUpdate(ticket: ITicket): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(ticket);
     return this.http

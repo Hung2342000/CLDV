@@ -7,13 +7,7 @@
       </div>
       <div class="row">
         <div class="justify-content-center align-items-center" style="text-align: center; margin-bottom: 20px">
-          <ngx-qrcode
-            *ngIf="shop.shopCode"
-            [value]="'http://localhost:9000/khaosat/' + shop.shopCode"
-            [width]="130"
-            [elementType]="elementType"
-          >
-          </ngx-qrcode>
+          <ngx-qrcode *ngIf="shop.shopCode" [value]="url + shop.shopCode" [width]="130" [elementType]="elementType"> </ngx-qrcode>
           <button *ngIf="shop.shopCode" class="btn btn-secondary" (click)="downloadQRCode()">Tải xuống QR</button>
         </div>
       </div>
