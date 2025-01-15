@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   quanlytaisan-app:
-    image: quanlytaisan
+    image: clgv
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
@@ -13,4 +13,4 @@ services:
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:8080:8080
+      - 8083:8083
